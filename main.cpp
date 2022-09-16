@@ -10,56 +10,40 @@ using namespace std;
 // бесконечная программа? Сделать массив со ссылками на объекты класса и создавать их в цикле
 class ComplexNumbers {
 public:
-    ComplexNumbers(double realPart1, double realPart2, double imaginaryPart1,
-                   double imaginaryPart2) : realPart1(realPart1), realPart2(realPart2),
-                   imaginaryPart1(imaginaryPart1), imaginaryPart2(imaginaryPart2) {}
+    ComplexNumbers(double realPart, double imaginaryPart) : realPart(realPart), imaginaryPart(imaginaryPart) {}
 
-    double getRealPart1() const {
-        return realPart1;
+    double getRealPart() const {
+        return realPart;
     }
 
-    double getRealPart2() const {
-        return realPart2;
+    double getImaginaryPart() const {
+        return imaginaryPart;
     }
 
-    double getImaginaryPart1() const {
-        return imaginaryPart1;
+    string toString() {
+        return "(" + to_string(getRealPart()) + " + " + to_string(getImaginaryPart()) + "i" + ")";
     }
 
-    double getImaginaryPart2() const {
-        return imaginaryPart2;
+    ComplexNumbers addition(ComplexNumbers complexNumbers) {
+        return ComplexNumbers((realPart + complexNumbers.getRealPart()), (imaginaryPart + complexNumbers.getImaginaryPart()));
     }
 
-    string firstNumber() {
-        return "(" + to_string(getRealPart1()) + " + " + to_string(getImaginaryPart1()) + "i" + ")";
+    ComplexNumbers substraction(ComplexNumbers complexNumbers) {
+        return ComplexNumbers((realPart - complexNumbers.getRealPart()), (imaginaryPart - complexNumbers.getImaginaryPart()));
     }
 
-    string secondNumber() {
-        return "(" + to_string(getRealPart2()) + " + " + to_string(getImaginaryPart2()) + "i" + ")";
-    }
-
-    string addition() {
-        return "Ответ: " + to_string(realPart1 + realPart2) + " + " + to_string(imaginaryPart1 + imaginaryPart2) + "i";
-    }
-
-    string substraction() {
-        return "Ответ: " + to_string(realPart1 - realPart2) + " + " + to_string(imaginaryPart1 - imaginaryPart2) + "i";
-    }
 protected:
-    double realPart1;// Нужны ли double? Проблема с выводом
-    double realPart2;
-    double imaginaryPart1;
-    double imaginaryPart2;
+    double realPart;// Нужны ли double? Проблема с выводом
+    double imaginaryPart;
 };
 
 class ChildClass : public ComplexNumbers {
 public:
-    ChildClass(double realPart1, double realPart2, double imaginaryPart1, double imaginaryPart2) : ComplexNumbers(
-            realPart1, realPart2, imaginaryPart1, imaginaryPart2) {}
+    ChildClass(double realPart, double imaginaryPart) : ComplexNumbers(realPart, imaginaryPart) {}
 
-    string multiply() {
-        return "Ответ: " + to_string((realPart1 * realPart2) - (imaginaryPart1 * imaginaryPart2)) + " + " +
-        to_string((imaginaryPart1 * realPart2) + (realPart1 * imaginaryPart2)) + "i";
+    ChildClass multiply(ChildClass childClass) {
+        return ChildClass(((realPart * childClass.getRealPart()) - (imaginaryPart * childClass.getImaginaryPart())),
+                ((imaginaryPart * childClass.getRealPart()) + (realPart * childClass.getImaginaryPart())));
     }
 };
 
