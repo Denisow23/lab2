@@ -8,6 +8,7 @@ using namespace std;
 // пишу код который принимает действительную и мнимую части поочередно
 // и складыва€ возвращает строку
 // бесконечна€ программа? —делать массив со ссылками на объекты класса и создавать их в цикле
+/** — точки зрени€ инкапсул€ции правильно ли будет в конструктор засунуть исключени€? **/
 class ComplexNumbers {
 public:
     ComplexNumbers(double realPart, double imaginaryPart) : realPart(realPart), imaginaryPart(imaginaryPart) {}
@@ -76,6 +77,8 @@ int main() {
         fflush(stdin);
     }
 
+    ComplexNumbers complexNumber1(realPart1, imaginaryPart1);
+
     cout << "¬ведите через пробел действительную и мнимую части 2 "
             "комплексного числа(ƒиапазон от -1000 до 1000)" << endl;
     while (!(cin >> realPart2 >> imaginaryPart2) || (realPart2 > 1000 ||
@@ -85,25 +88,24 @@ int main() {
         fflush(stdin);
     }
 
-    ComplexNumbers complexNumbers(realPart1, realPart2, imaginaryPart1, imaginaryPart2);
-
-
+    ComplexNumbers complexNumber2(realPart2, imaginaryPart2);
 
     switch (vibor) {
         case '+': {
-            cout << "¬веден пример: " << complexNumbers.firstNumber() + " + " + complexNumbers.secondNumber() << endl;
-            cout << complexNumbers.addition() << endl;
+            cout << "¬веден пример: " << complexNumber1.toString() + " + " + complexNumber2.toString() << endl;
+            cout << "ќтвет: " << complexNumber1.addition(complexNumber2).toString() << endl;
             break;
         }
         case '-': {
-            cout << "¬веден пример: " << complexNumbers.firstNumber() + " - " + complexNumbers.secondNumber() << endl;
-            cout << complexNumbers.substraction() << endl;
+            cout << "¬веден пример: " << complexNumber1.toString() + " - " + complexNumber2.toString() << endl;
+            cout << "ќтвет: " << complexNumber1.substraction(complexNumber2).toString() << endl;
             break;
         }
         case '*': {
-            ChildClass childClass(realPart1, realPart2, imaginaryPart1, imaginaryPart2);
-            cout << "¬веден пример: " << childClass.firstNumber() + " * " + childClass.secondNumber() << endl;
-            cout << childClass.multiply() << endl;
+            ChildClass childClass1(realPart1, imaginaryPart1);
+            ChildClass childClass2(realPart2, imaginaryPart2);
+            cout << "¬веден пример: " << childClass1.toString() + " * " + childClass2.toString() << endl;
+            cout << "ќтвет: " << childClass1.multiply(childClass2).toString() << endl;
             break;
         }
     }
