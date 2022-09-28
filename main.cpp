@@ -1,6 +1,7 @@
 #include <iostream>
 #include <windows.h>
-
+#include "ComplexNumbers.h"
+#include "ChildClass.h"
 using namespace std;
 
 // какими способами можно вводить число (алгебраическая/тригонометрическая/показательная) форма
@@ -9,44 +10,44 @@ using namespace std;
 // и складывая возвращает строку
 // бесконечная программа? Сделать массив со ссылками на объекты класса и создавать их в цикле
 /** С точки зрения инкапсуляции правильно ли будет в конструктор засунуть исключения? **/
-class ComplexNumbers {
-public:
-    ComplexNumbers(double realPart, double imaginaryPart) : realPart(realPart), imaginaryPart(imaginaryPart) {}
-
-    double getRealPart() const {
-        return realPart;
-    }
-
-    double getImaginaryPart() const {
-        return imaginaryPart;
-    }
-
-    string toString() {
-        return "(" + to_string(getRealPart()) + " + " + to_string(getImaginaryPart()) + "i" + ")";
-    }
-
-    ComplexNumbers addition(ComplexNumbers complexNumbers) {
-        return ComplexNumbers((realPart + complexNumbers.getRealPart()), (imaginaryPart + complexNumbers.getImaginaryPart()));
-    }
-
-    ComplexNumbers substraction(ComplexNumbers complexNumbers) {
-        return ComplexNumbers((realPart - complexNumbers.getRealPart()), (imaginaryPart - complexNumbers.getImaginaryPart()));
-    }
-
-protected:
-    double realPart;// Нужны ли double? Проблема с выводом
-    double imaginaryPart;
-};
-
-class ChildClass : public ComplexNumbers {
-public:
-    ChildClass(double realPart, double imaginaryPart) : ComplexNumbers(realPart, imaginaryPart) {}
-
-    ChildClass multiply(ChildClass childClass) {
-        return ChildClass(((realPart * childClass.getRealPart()) - (imaginaryPart * childClass.getImaginaryPart())),
-                ((imaginaryPart * childClass.getRealPart()) + (realPart * childClass.getImaginaryPart())));
-    }
-};
+//class ComplexNumbers {
+//public:
+//    ComplexNumbers(double realPart, double imaginaryPart) : realPart(realPart), imaginaryPart(imaginaryPart) {}
+//
+//    double getRealPart() const {
+//        return realPart;
+//    }
+//
+//    double getImaginaryPart() const {
+//        return imaginaryPart;
+//    }
+//
+//    string toString() {
+//        return "(" + to_string(getRealPart()) + " + " + to_string(getImaginaryPart()) + "i" + ")";
+//    }
+//
+//    ComplexNumbers addition(ComplexNumbers complexNumbers) {
+//        return ComplexNumbers((realPart + complexNumbers.getRealPart()), (imaginaryPart + complexNumbers.getImaginaryPart()));
+//    }
+//
+//    ComplexNumbers substraction(ComplexNumbers complexNumbers) {
+//        return ComplexNumbers((realPart - complexNumbers.getRealPart()), (imaginaryPart - complexNumbers.getImaginaryPart()));
+//    }
+//
+//protected:
+//    double realPart;// Нужны ли double? Проблема с выводом
+//    double imaginaryPart;
+//};
+//
+//class ChildClass : public ComplexNumbers {
+//public:
+//    ChildClass(double realPart, double imaginaryPart) : ComplexNumbers(realPart, imaginaryPart) {}
+//
+//    ChildClass multiply(ChildClass childClass) {
+//        return ChildClass(((realPart * childClass.getRealPart()) - (imaginaryPart * childClass.getImaginaryPart())),
+//                ((imaginaryPart * childClass.getRealPart()) + (realPart * childClass.getImaginaryPart())));
+//    }
+//};
 
 int main() {
     SetConsoleCP(1251);
@@ -57,10 +58,13 @@ int main() {
     double imaginaryPart1;
     double imaginaryPart2;
     char vibor;
+    cout << "Денисов Даниил Алексеевич. Группа А-17-21. Лабораторная работа 2."
+            " Простейшие классы, одиночное наследование" << endl;
+    cout << "Выберете действие, которое хотите выполнить с комплексными числами" << endl;
     cout << "'+' - сложение" << "\n"
     << "'-' - вычитание" << "\n" <<
     "'*' - умножение"<< "\n" << endl;
-    cout << "Выберите действие" << endl;
+    cout << "Ваш выбор: " << endl;
     while (!(cin >> vibor) || (vibor != '+' &&
             vibor != '-' && vibor != '*')) {
         cout << "Ошибка ввода!" << std::endl;
@@ -107,6 +111,10 @@ int main() {
             cout << "Введен пример: " << childClass1.toString() + " * " + childClass2.toString() << endl;
             cout << "Ответ: " << childClass1.multiply(childClass2).toString() << endl;
             break;
+        }
+        default : {
+            cout << "Ошибка выполнения программы!" << endl;
+            exit(1);
         }
     }
     return 0;
